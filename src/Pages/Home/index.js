@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
-
+import Header from './Header';
+import Selector from './Selector';
+import Story from './Story';
+import Daily from './Daily';
 import {
   Image,
   FlatList,
   StyleSheet,
   Text,
   View,
+  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 
@@ -19,43 +23,55 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <FlatList
-        data={this.state.data}
-        style={styles.list}
-        renderItem={this.renderMovie.bind(this)}
-        keyExtractor={(item) => item.id}
-      />
+      <ScrollView>
+        <View style={styles.body}>
+          <Header />
+          <Selector navigation={this.props.navigation} />
+          <Story />
+          <Daily />
+          <FlatList
+            data={this.state.data}
+            style={styles.list}
+            renderItem={this.renderBook.bind(this)}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+      </ScrollView>
     );
   }
 
-  renderMovie({item}) {
+  renderBook({item}) {
     return (
       <View style={styles.container}>
         <Image
-          source={{
-            uri:
-              'https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=e4d6ea2325dda3cc0be4bf2639d25e3c/b64543a98226cffcb1f7cc0eb2014a90f703eaa9.jpg',
-          }}
+          source={require('../../../public/book.jpg')}
           style={styles.thumbnail}
         />
         <View style={styles.rightContainer}>
           <View style={styles.titleWithout}>
-            <Text style={styles.title}>罗小黑战记</Text>
-            <Text style={styles.tip}>中国巨屏</Text>
+            <Text style={styles.title}>Emotion Management</Text>
+            <Text style={styles.tip}>HOT</Text>
           </View>
           <Text style={styles.score}>
-            猫眼评分<Text style={styles.grade}> 9.8 </Text>
+            <Text style={styles.grade}> 180 </Text>comments
           </Text>
-          <Text style={styles.starring}>主演:罗小黑，罗小白</Text>
-          <Text style={styles.cinema}>今天129加音乐反映124场</Text>
+          <Text style={styles.starring}>Author : Joshua</Text>
+          <Text style={styles.cinema}>2012-01-02</Text>
         </View>
-        <Text style={styles.buy}>购买</Text>
+        <Text style={styles.buy}>More</Text>
       </View>
     );
   }
 }
 
 var styles = StyleSheet.create({
+  body: {
+    height: 900,
+    overflow: 'scroll',
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#fff',
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -81,12 +97,12 @@ var styles = StyleSheet.create({
     marginTop: 4,
   },
   tip: {
-    backgroundColor: '#999',
+    backgroundColor: 'rgb(255,108,70)',
     fontSize: 8,
     textAlign: 'center',
     color: '#fff',
     height: 14,
-    width: 40,
+    width: 30,
     lineHeight: 14,
     borderRadius: 2,
     marginLeft: 4,
@@ -114,7 +130,7 @@ var styles = StyleSheet.create({
     height: 24,
     lineHeight: 24,
     textAlign: 'center',
-    backgroundColor: '#D44145',
+    backgroundColor: 'rgb(180,58,81)',
     color: '#fff',
     borderRadius: 12,
     marginRight: 20,
@@ -126,14 +142,13 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   thumbnail: {
-    width: 68,
-    height: 94,
-    marginLeft: 20,
+    width: 63,
+    height: 85,
+    marginLeft: 10,
     marginTop: 10,
     marginBottom: 10,
   },
   list: {
-    paddingTop: 40,
     backgroundColor: '#F5FCFF',
   },
   headerOutline: {
