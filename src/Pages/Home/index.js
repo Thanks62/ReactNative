@@ -28,7 +28,7 @@ export default class HomeScreen extends Component {
           <Header />
           <Selector navigation={this.props.navigation} />
           <Story />
-          <Daily />
+          <Daily navigation={this.props.navigation}/>
           <FlatList
             data={this.state.data}
             style={styles.list}

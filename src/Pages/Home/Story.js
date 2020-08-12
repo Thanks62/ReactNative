@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 export default class Story extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +18,9 @@ export default class Story extends React.Component {
       <View style={styles.story}>
         <Text style={styles.title}>Feature Story</Text>
         <View style={styles.card}>
-          <Text style={styles.icon}>ICON</Text>
+          <View style={styles.iconBor}>
+            <MaterialIcons style={styles.icon} name={'favorite'}/>
+          </View>
           <Text style={styles.name}>Alana Jones</Text>
           <Text>Change Nagative Thinking</Text>
           <Text>Patterns for Good</Text>
@@ -34,14 +37,19 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   card: {
-    width: 320,
+    flex:1,
     marginTop: 15,
     backgroundColor: 'rgb(248,240,234)',
     height: 120,
     borderRadius: 20,
     padding: 20,
   },
+  iconBor:{
+    alignItems:'flex-end',
+  },
   icon: {
+    fontSize:25,
+    color:'pink',
     height: 30,
   },
   name: {

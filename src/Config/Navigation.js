@@ -1,12 +1,37 @@
-import {createStackNavigator} from 'react-navigation-stack';
 import HomeScreen from '../Pages/Home';
+import React from 'react';
 import NewsScreen from '../Pages/News';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-export const Nav = createBottomTabNavigator({
-  Home: {
-    screen: HomeScreen,
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+export const Nav = createBottomTabNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+    },
+    News: {
+      screen: NewsScreen,
+    },
   },
-  News: {
-    screen: NewsScreen,
+  {
+    defaultNavigationOptions: ({navigation}) => ({
+      tabBarIcon: ({focused, horizontal, tintColor}) => {
+        const {routeName} = navigation.state;
+        let IconComponent = MaterialIcons;
+        let iconName;
+        if (routeName === 'Home') {
+          iconName = 'home';
+          // Sometimes we want to add badges to some icons.
+          // You can check the implementation below.
+        } else if (routeName === 'News') {
+          iconName = 'dashboard';
+        }
+        // You can return any component that you like here!
+        return <IconComponent name={iconName} size={25} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
+    },
   },
-});
+);

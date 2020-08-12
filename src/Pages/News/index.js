@@ -1,13 +1,46 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-const Card = (props) => {
-  return (
-    <View style={styles.card}>
-      <Text style={styles.subTitle}>Ask Yourself</Text>
-      <Text style={styles.subText}>What emotion am I experiencing right now?</Text>
-    </View>
-  );
-};
+import {Text, View, StyleSheet, Animated, Modal} from 'react-native';
+class Card extends Component {
+  //const slideAni = React.useRef(new Animated.Value(400)).current;
+  constructor(props) {
+    super(props);
+    this.state = {
+      slideAni: new Animated.Value(400),
+      modal: true,
+    };
+  }
+
+  componentDidUpdate() {
+    Animated.timing(this.state.slideAni, {
+      toValue: 0,
+      duration: 800,
+    }).start();
+  }
+
+  componentDidMount() {
+    this._navListener = this.props.navigation.addListener('didFocus', () => {
+      this.setState({
+        slideAni: new Animated.Value(400),
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this._navListener.remove();
+  }
+  render() {
+    return (
+      <Animated.View style={([styles.ani], {top: this.state.slideAni})}>
+        <View style={styles.card}>
+          <Text style={styles.subTitle}>Ask Yourself</Text>
+          <Text style={styles.subText}>
+            What emotion am I experiencing right now?
+          </Text>
+        </View>
+      </Animated.View>
+    );
+  }
+}
 export default class NewsScreen extends Component {
   render() {
     return (
@@ -21,14 +54,14 @@ export default class NewsScreen extends Component {
             </Text>
           </View>
         </View>
-        <Card />
+        <Card navigation={this.props.navigation} />
       </>
     );
   }
 }
 var styles = StyleSheet.create({
   header: {
-    flex: 0.4,
+    height: 200,
     paddingTop: 30,
     alignItems: 'center',
     backgroundColor: 'rgb(70, 33, 54)',
@@ -49,24 +82,27 @@ var styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
   },
+  ani: {
+    position: 'relative',
+  },
   card: {
-    flex: 1,
-    padding:30,
+    height: 500,
+    padding: 30,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     position: 'relative',
     top: -20,
     backgroundColor: '#fff',
-    alignItems:'center'
+    alignItems: 'center',
   },
-  subTitle:{
-    color:'#bbb',
-    lineHeight:60,
+  subTitle: {
+    color: '#bbb',
+    lineHeight: 60,
   },
-  subText:{
-    textAlign:'center',
-    fontSize:18,
-    width:200,
-    lineHeight:30
-  }
+  subText: {
+    textAlign: 'center',
+    fontSize: 18,
+    width: 200,
+    lineHeight: 30,
+  },
 });
