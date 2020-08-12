@@ -1,6 +1,7 @@
 import HomeScreen from '../Pages/Home';
 import React from 'react';
 import NewsScreen from '../Pages/News';
+import LoginScreen from '../Pages/Login';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 export const Nav = createBottomTabNavigator(
@@ -10,6 +11,9 @@ export const Nav = createBottomTabNavigator(
     },
     News: {
       screen: NewsScreen,
+    },
+    Login: {
+      screen: LoginScreen,
     },
   },
   {
@@ -23,6 +27,8 @@ export const Nav = createBottomTabNavigator(
           // Sometimes we want to add badges to some icons.
           // You can check the implementation below.
         } else if (routeName === 'News') {
+          iconName = 'dashboard';
+        }else if (routeName === 'Login') {
           iconName = 'dashboard';
         }
         // You can return any component that you like here!
