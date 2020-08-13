@@ -15,6 +15,7 @@ export default class Header extends React.Component {
             style={styles.img}
             source={require('../../../public/head.jpg')}
           />
+          <Text style={styles.logOut}>Log out</Text>
         </View>
       </View>
     );
@@ -46,6 +47,11 @@ var styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+  },
+  logOut:{
+    textDecorationColor:"tomato",
+    textDecorationLine:"underline",
+    color:"tomato"
   },
   head: {},
 });
