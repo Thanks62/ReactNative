@@ -2,18 +2,32 @@ import HomeScreen from '../Pages/Home';
 import React from 'react';
 import NewsScreen from '../Pages/News';
 import LoginScreen from '../Pages/Login';
+import {createSwitchNavigator} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-export const Nav = createBottomTabNavigator(
+import {createStackNavigator} from 'react-navigation-stack';
+const HomeStack = createStackNavigator({
+  Home: {
+    screen: HomeScreen,
+  },
+});
+const NewsStack = createStackNavigator({
+  News: {
+    screen: NewsScreen,
+  },
+});
+const LoginStack = createStackNavigator({
+  Login: {
+    screen: LoginScreen,
+  },
+});
+const Index = createBottomTabNavigator(
   {
     Home: {
-      screen: HomeScreen,
+      screen: HomeStack,
     },
     News: {
-      screen: NewsScreen,
-    },
-    Login: {
-      screen: LoginScreen,
+      screen: NewsStack,
     },
   },
   {
@@ -28,8 +42,6 @@ export const Nav = createBottomTabNavigator(
           // You can check the implementation below.
         } else if (routeName === 'News') {
           iconName = 'dashboard';
-        }else if (routeName === 'Login') {
-          iconName = 'dashboard';
         }
         // You can return any component that you like here!
         return <IconComponent name={iconName} size={25} color={tintColor} />;
@@ -39,5 +51,21 @@ export const Nav = createBottomTabNavigator(
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
     },
+  },
+);
+export const Route = createSwitchNavigator(
+  {
+    Index: {
+      screen: Index,
+    },
+    Auth: {
+      screen: LoginStack,
+    },
+  },
+  {
+    initialRouteName: 'Auth',
+    defaultNavigationOptions:{
+      header: null,
+    }
   },
 );

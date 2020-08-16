@@ -112,6 +112,25 @@
 
 // export default App;
 import {createAppContainer} from 'react-navigation';
-import {Nav} from './src/Config/Navigation';
-
-export default createAppContainer(Nav);
+import React from 'react';
+import {Route} from './src/Config/Navigation';
+import {Provider} from 'react-redux';
+import store from './src/redux/store';
+// class App extends React.Component {
+//   render() {
+//     return <Nav />;
+//   }
+// }
+const BtnNav = createAppContainer(Route);
+export default class App extends React.Component {
+  static navigationOptions = {
+    header: null,  //隐藏顶部导航栏
+};
+  render() {
+    return (
+      <Provider store={store}>
+        <BtnNav />
+      </Provider>
+    );
+  }
+}

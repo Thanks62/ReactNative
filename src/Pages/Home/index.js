@@ -3,6 +3,7 @@ import Header from './Header';
 import Selector from './Selector';
 import Story from './Story';
 import Daily from './Daily';
+import {connect} from 'react-redux';
 import {
   Image,
   FlatList,
@@ -13,7 +14,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,14 +22,32 @@ export default class HomeScreen extends Component {
     };
   }
 
+  componentWillMount() {
+    if (!this.props.LoginStatus) {
+      this.props.navigation.navigate('Login');
+    }
+  }
+
+  componentDidMount() {
+    this._navListener = this.props.navigation.addListener('didFocus', () => {
+      if (!this.props.LoginStatus) {
+        this.props.navigation.navigate('Login');
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this._navListener.remove();
+  }
+
   render() {
     return (
       <ScrollView>
         <View style={styles.body}>
-          <Header />
+          <Header navigation={this.props.navigation} />
           <Selector navigation={this.props.navigation} />
           <Story />
-          <Daily navigation={this.props.navigation}/>
+          <Daily navigation={this.props.navigation} />
           <FlatList
             data={this.state.data}
             style={styles.list}
@@ -63,7 +82,10 @@ export default class HomeScreen extends Component {
     );
   }
 }
-
+const Index = connect((state) => ({
+  LoginStatus: state.login,
+}))(HomeScreen);
+export default Index;
 var styles = StyleSheet.create({
   body: {
     height: 900,
