@@ -40,36 +40,30 @@ class Login extends Component {
     this.setState({
       btn: '...Login',
     });
-    // fetchData(
-    //   'http://192.168.2.107:3000/',
-    //   `userName=${this.state.name}&password=${this.state.password}`,
-    // );
-    fetch('http://192.168.2.107:3000/', {
-      method: 'POST',
-      body: `userName=${this.state.name}&password=${this.state.password}`,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((responseData) => {
-        this.setState({
-          btn: 'Login',
-        });
-        if (responseData.res === 'success') {
-          this.props.onLogin(this.state.name);
-          this.props.navigation.navigate('Home');
-        } else {
-          // alert('User name or Password error!');
-          this.setState({
-            message: 'User name or Password error!',
-            modalVisible: true,
-          });
-        }
-      });
+    fetchData(
+      'http://192.168.2.107:3000/',
+      `userName=${this.state.name}&password=${this.state.password}`,
+      this.callbackSuccess,
+      this.callbackFailed,
+    );
   };
+
+  callbackSuccess = () => {
+    this.props.onLogin(this.state.name);
+    this.props.navigation.navigate('Home');
+    this.setState({
+      btn: 'Login',
+    });
+  };
+
+  callbackFailed = (message) => {
+    this.setState({
+      message: message,
+      modalVisible: true,
+      btn: 'Login',
+    });
+  };
+
   handleChangeName = (_name) => {
     this.setState({
       name: _name,

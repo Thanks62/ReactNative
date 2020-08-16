@@ -1,12 +1,4 @@
-export default function fetchData(url, body) {
-  let promise = new Promise((resolve, reject) => {
-    this.timer = setTimeout(() => {
-      reject(new Error('超时了'));
-    }, 20000);
-  })
-    .then((data) => {})
-    .catch((e) => {});
-
+export default function fetchData(url, body, callbackSuccess, callbackFaild) {
   let httpPromise = new Promise((resolve, reject) => {
     fetch(url, {
       method: 'POST',
@@ -27,57 +19,24 @@ export default function fetchData(url, body) {
         reject(e);
       });
   });
-
-  Promise.race([promise, httpPromise])
-    .then((json) => {
-      // this.LoadingDialog.close();
-      if (json.Statu == 1) {
-        // this.props.login_in(json.Data);
-        alert(json.Data)
+  Promise.race([
+    httpPromise,
+    new Promise(function (resolve, reject) {
+      setTimeout(() => reject(new Error('request timeout')), 5000);
+    }),
+  ])
+    .then((data) => {
+      //请求成功
+      // alert(data.res)
+      if (data.res === 'success') {
+        callbackSuccess();
       } else {
-        // this.props.loginFail();
-        alert('failed')
+        callbackFaild('User name or Password error!');
       }
-      new Promise((resolve, reject) => {
-        this.timer = setTimeout(() => {
-          resolve();
-        }, 500);
-      })
-        .then(() => {
-          Alert.alert(
-            '提示',
-            json.Msg,
-            [
-              {
-                text: '确定',
-                onPress: () => {},
-              },
-            ],
-            {cancelable: false},
-          );
-        })
-        .catch((e) => {
-          console.log('出现异常' + e.toString());
-        });
+      // return data.res;
     })
-    .catch((e) => {
-      // this.LoadingDialog.close();
-      new Promise((resolve, reject) => {
-        this.timer = setTimeout(() => {
-          resolve();
-        }, 500);
-      }).then(() => {
-        Alert.alert(
-          '提示',
-          e.toString(),
-          [
-            {
-              text: '确定',
-              onPress: () => {},
-            },
-          ],
-          {cancelable: false},
-        );
-      });
+    .catch(() => {
+      //请求失败
+      callbackFaild('Network Faild');
     });
 }
