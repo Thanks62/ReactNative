@@ -7,27 +7,34 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "dev": "webpack -w",
+    "build": "webpack"
   },
   "dependencies": {
     "react": "16.13.1",
-    "react-native": "0.63.2",
-    "react-native-gesture-handler": "^1.7.0",
-    "react-native-reanimated": "^1.10.2",
-    "react-navigation": "^4.4.0",
-    "react-navigation-drawer": "^2.5.0",
-    "react-navigation-stack": "^2.8.2",
-    "react-navigation-tabs": "^2.9.0"
+    "react-dom": "^16.13.1",
+    "react-native": "^0.63.2",
+    "react-native-web": "^0.13.8"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-flow": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^1.1.0",
     "babel-jest": "^25.1.0",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
     "eslint": "^6.5.1",
+    "html-webpack-plugin": "^4.3.0",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
-    "react-test-renderer": "16.13.1"
+    "react-test-renderer": "16.13.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "jest": {
     "preset": "react-native"

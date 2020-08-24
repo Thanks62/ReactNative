@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
+  // TouchableOpacity,
 } from 'react-native';
 
 export default class HomeScreen extends Component {
