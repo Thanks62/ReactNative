@@ -9,7 +9,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({filename: './index.html'})
+    new HtmlWebpackPlugin({filename: './index.html'}),
   ],
   mode: 'development',
   module: {
