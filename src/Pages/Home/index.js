@@ -3,14 +3,15 @@ import Header from './Header';
 import Selector from './Selector';
 import Story from './Story';
 import Daily from './Daily';
-// import {connect} from 'react-redux';
+import {connect} from 'react-redux';
 import {
-  // Image,
+  Image,
   FlatList,
   StyleSheet,
   Text,
   View,
   ScrollView,
+  Platform,
   // TouchableOpacity,
 } from 'react-native';
 
@@ -60,12 +61,20 @@ class HomeScreen extends Component {
   }
 
   renderBook({item}) {
-    return (
-      <View style={styles.container}>
-        {/* <Image
+    let img;
+    if (Platform.OS === 'android' || Platform.OS === 'ios'){
+      img = (
+        <Image
           source={require('../../../public/book.jpg')}
           style={styles.thumbnail}
-        /> */}
+        />
+      );
+    } else {
+      img = <img src="../../../public/book.jpg" width="55px" />
+    }
+    return (
+      <View style={styles.container}>
+        {img}
         <View style={styles.rightContainer}>
           <View style={styles.titleWithout}>
             <Text style={styles.title}>Emotion Management</Text>
@@ -82,13 +91,12 @@ class HomeScreen extends Component {
     );
   }
 }
-// const Index = connect((state) => ({
-//   LoginStatus: state.login,
-// }))(HomeScreen);
-export default HomeScreen;
+const Index = connect((state) => ({
+  LoginStatus: state.login,
+}))(HomeScreen);
+export default Index;
 var styles = StyleSheet.create({
   body: {
-    height: 900,
     overflow: 'scroll',
     paddingLeft: 20,
     paddingRight: 20,

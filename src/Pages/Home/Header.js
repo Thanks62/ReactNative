@@ -1,32 +1,47 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
-// import {connect} from 'react-redux';
-// import {logout} from '../../redux/action';
+import {View, Text, Image, StyleSheet, Platform} from 'react-native';
+import {connect} from 'react-redux';
+import {logout} from '../../redux/action';
 class Header extends React.Component {
   logout() {
     this.props.onLogout();
     // this.props.navigation.navigate('Login')
-  };
+  }
   render() {
     const day = new Date().toDateString();
     const user = 'Jane';
+    let img;
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+      img = (
+        <Image
+          source={require('../../../public/head.jpg')}
+          style={styles.thumbnail}
+        />
+      );
+    } else {
+      img = (
+        <img
+          src="../../../public/head.jpg"
+          width="55px"
+          style={{borderRadius: '30px'}}
+        />
+      );
+    }
     return (
       <View style={styles.container}>
         <View style={styles.text}>
           <Text style={styles.date}>{day}</Text>
-          <Text style={styles.user}>Hello, 
-          {/* {this.props.LoginStatus.user}! */}
+          <Text style={styles.user}>
+            Hello, {user}
+            {/* {this.props.LoginStatus.user}! */}
           </Text>
         </View>
         <View style={styles.head}>
-          {/* <Image
-            style={styles.img}
-            source={require('../../../public/head.jpg')}
-          /> */}
+          {img}
           <Text
             style={styles.logOut}
             onPress={() => {
-              this.logout();
+              this.logout.bind(this);
             }}>
             Log out
           </Text>
@@ -35,13 +50,13 @@ class Header extends React.Component {
     );
   }
 }
-// const HeaderWrapper = connect(
-//   (state) => ({
-//     LoginStatus: state,
-//   }),
-//   {onLogout: logout},
-// )(Header);
-export default Header;
+const HeaderWrapper = connect(
+  (state) => ({
+    LoginStatus: state,
+  }),
+  {onLogout: logout},
+)(Header);
+export default HeaderWrapper;
 var styles = StyleSheet.create({
   container: {
     paddingTop: 20,

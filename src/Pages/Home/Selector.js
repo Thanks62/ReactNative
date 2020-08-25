@@ -24,7 +24,7 @@ export default class Selector extends React.Component {
         <Text style={styles.title}>Today I'm feeling</Text>
         <View style={styles.operate}>
           <TextInput
-            onChange={this.handleChange}
+            onChange={this.handleChange.bind(this)}
             style={styles.input}
             defaultValue="Happy"
           />

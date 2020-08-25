@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-// import NewsScreen from './src/Pages/News';
+import NewsScreen from './src/Pages/News';
 import HomeScreen from './src/Pages/Home';
+import LoginScreen from './src/Pages/Login'
 // import {TabNavigatior} from 'react-navigation';
-
+import {Provider} from 'react-redux';
+import store from './src/redux/store';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +14,9 @@ export default class App extends Component {
     return (
       <>
         {/* <NewsScreen /> */}
-        <HomeScreen />
+        <Provider store={store}>
+          <HomeScreen />
+        </Provider>
       </>
     );
   }
