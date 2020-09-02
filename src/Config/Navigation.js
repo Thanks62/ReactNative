@@ -101,6 +101,8 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 //     screen: NewsScreen,
 //   },
 // });
+
+
 const HomeStack = createStackNavigator({
   Home: {
     screen: HomeScreen,
@@ -122,10 +124,7 @@ export const Index = createSwitchNavigator({
   },
   News: {
     screen: NewsScreen,
-  },
-  Login: {
-    screen: LoginScreen,
-  },
+  }
 });
 export const Route = createSwitchNavigator(
   {

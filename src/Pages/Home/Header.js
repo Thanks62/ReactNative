@@ -3,10 +3,10 @@ import {View, Text, Image, StyleSheet, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import {logout} from '../../redux/action';
 class Header extends React.Component {
-  logout() {
+  logout = () => {
     this.props.onLogout();
-    this.props.navigation.navigate('Login')
-  }
+    this.props.navigation.navigate('Login');
+  };
   render() {
     const day = new Date().toDateString();
     const user = 'Jane';
@@ -38,11 +38,7 @@ class Header extends React.Component {
         </View>
         <View style={styles.head}>
           {img}
-          <Text
-            style={styles.logOut}
-            onPress={() => {
-              this.logout.bind(this);
-            }}>
+          <Text style={styles.logOut} onPress={this.logout}>
             Log out
           </Text>
         </View>
