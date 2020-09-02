@@ -5,7 +5,7 @@ import {logout} from '../../redux/action';
 class Header extends React.Component {
   logout() {
     this.props.onLogout();
-    // this.props.navigation.navigate('Login')
+    this.props.navigation.navigate('Login')
   }
   render() {
     const day = new Date().toDateString();

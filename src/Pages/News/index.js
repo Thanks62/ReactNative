@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, Animated} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Animated,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import List from './List';
 class Card extends Component {
   //const slideAni = React.useRef(new Animated.Value(400)).current;
   constructor(props) {
@@ -7,6 +15,8 @@ class Card extends Component {
     this.state = {
       slideAni: new Animated.Value(400),
       modal: true,
+      motion: '',
+      data: [],
     };
   }
 
@@ -25,10 +35,30 @@ class Card extends Component {
     // });
   }
 
+  setMotion = (text) => {
+    this.setState({
+      motion: text,
+    });
+  };
+
+  handleSubmit = () => {
+    let motion = {
+      name: this.state.motion,
+      time: new Date().toLocaleString(),
+    };
+    let res = [];
+    res = res.concat(this.state.data, motion);
+    //res.push(this.state.motion);
+    this.setState({
+      data: res,
+    });
+  };
+
   // componentWillUnmount() {
   //   this._navListener.remove();
   // }
   render() {
+    // const {data} = this.state.data;
     return (
       <Animated.View style={([styles.ani], {top: this.state.slideAni})}>
         <View style={styles.card}>
@@ -36,12 +66,22 @@ class Card extends Component {
           <Text style={styles.subText}>
             What emotion am I experiencing right now?
           </Text>
+          <TextInput style={styles.input} onChangeText={this.setMotion} />
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText} onPress={this.handleSubmit}>
+              Add
+            </Text>
+          </TouchableOpacity>
+          <List data={this.state.data} />
         </View>
       </Animated.View>
     );
   }
 }
 export default class NewsScreen extends Component {
+  goback = () => {
+    this.props.navigation.navigate('Home');
+  };
   render() {
     return (
       <>
@@ -53,6 +93,11 @@ export default class NewsScreen extends Component {
               choice about what to do with them
             </Text>
           </View>
+          <TouchableOpacity style={[styles.button, styles.Backbutton]}>
+            <Text style={styles.buttonBackText} onPress={this.goback}>
+              GO BACK
+            </Text>
+          </TouchableOpacity>
         </View>
         <Card navigation={this.props.navigation} />
       </>
@@ -82,11 +127,41 @@ var styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
   },
+  input: {
+    width: 200,
+    height: 30,
+    marginTop: 30,
+    textAlign: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: '#eeeee',
+  },
+  button: {
+    shadowColor: 'rgb(70,33,54)',
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    shadowOffset: {width: 0, height: 2},
+    elevation: 5,
+    marginTop: 20,
+    marginBottom: 20,
+    alignItems: 'center',
+    backgroundColor: 'rgb(70,33,54)',
+    borderRadius: 20,
+    height: 35,
+    width: 120,
+  },
+  Backbutton: {
+    backgroundColor: 'white',
+    height: 20,
+  },
+  buttonText: {
+    lineHeight: 34,
+    color: '#fff',
+  },
   ani: {
     position: 'relative',
   },
   card: {
-    height: 500,
+    height: '90vh',
     padding: 30,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

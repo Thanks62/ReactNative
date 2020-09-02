@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import NewsScreen from './src/Pages/News';
 import HomeScreen from './src/Pages/Home';
-import LoginScreen from './src/Pages/Login'
+import LoginScreen from './src/Pages/Login';
+import {AppScreen} from './src/Config/Navigation';
 // import {TabNavigatior} from 'react-navigation';
 import {Provider} from 'react-redux';
 import store from './src/redux/store';
@@ -12,12 +13,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <>
-        {/* <NewsScreen /> */}
-        <Provider store={store}>
-          <HomeScreen />
-        </Provider>
-      </>
+      <Provider store={store}>
+        <AppScreen />
+      </Provider>
     );
   }
 }

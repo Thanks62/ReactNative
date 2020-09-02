@@ -1,197 +1,146 @@
-// import {TabNavigatior} from 'react-navigation';
 // import HomeScreen from '../Pages/Home';
 // import NewsScreen from '../Pages/News';
-// const RootTabs = TabNavigatior({
+// import LoginScreen from '../Pages/Login';
+// import {createSwitchNavigator} from 'react-navigation';
+// import {createBottomTabNavigator} from 'react-navigation-tabs';
+// // import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+// import {createStackNavigator} from 'react-navigation-stack';
+// import {createBrowserApp} from '@react-navigation/web';
+// const HomeStack = createStackNavigator({
 //   Home: {
 //     screen: HomeScreen,
-//     navigationOptions: {
-//       tabBarLabel: 'Home',
+//   },
+// });
+// const NewsStack = createStackNavigator({
+//   News: {
+//     screen: NewsScreen,
+//   },
+// });
+// const LoginStack = createStackNavigator({
+//   Login: {
+//     screen: LoginScreen,
+//   },
+// });
+// const Index = createBottomTabNavigator(
+//   {
+//     Home: {
+//       screen: HomeStack,
 //     },
+//     News: {
+//       screen: NewsStack,
+//     },
+//   },
+//   {
+//     // defaultNavigationOptions: ({navigation}) => ({
+//     //   tabBarIcon: ({focused, horizontal, tintColor}) => {
+//     //     const {routeName} = navigation.state;
+//     //     let IconComponent = MaterialIcons;
+//     //     let iconName;
+//     //     if (routeName === 'Home') {
+//     //       iconName = 'home';
+//     //       // Sometimes we want to add badges to some icons.
+//     //       // You can check the implementation below.
+//     //     } else if (routeName === 'News') {
+//     //       iconName = 'dashboard';
+//     //     }
+//     //     // You can return any component that you like here!
+//     //     return <IconComponent name={iconName} size={25} color={tintColor} />;
+//     //   },
+//     // }),
+//     tabBarOptions: {
+//       activeTintColor: 'tomato',
+//       inactiveTintColor: 'gray',
+//     },
+//   },
+// );
+// export const Route = createSwitchNavigator(
+//   {
+//     Index: {
+//       screen: Index,
+//     },
+//     Auth: {
+//       screen: LoginStack,
+//     },
+//   },
+//   {
+//     initialRouteName: 'Auth',
+//     defaultNavigationOptions: {
+//       header: null,
+//     },
+//   },
+// );
+import HomeScreen from '../Pages/Home';
+import NewsScreen from '../Pages/News';
+import LoginScreen from '../Pages/Login';
+import {createSwitchNavigator} from 'react-navigation';
+import {createBrowserApp} from '@react-navigation/web';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+
+// export const Route = createSwitchNavigator(
+//   {
+//     Index: {
+//       screen: HomeScreen,
+//     },
+//     Auth: {
+//       screen: NewsScreen,
+//     },
+//   },
+//   {
+//     initialRouteName: 'Auth',
+//     defaultNavigationOptions: {
+//       header: null,
+//     },
+//   },
+// );
+// const Route = createStackNavigator({
+//   Home: {
+//     screen: HomeScreen,
 //   },
 //   News: {
 //     screen: NewsScreen,
-//     navigationOptions: {
-//       tabBarLabel: 'News',
-//     },
 //   },
 // });
-// // eslint-disable-next-line react/react-in-jsx-scope
-// export default () => <RootTabs />;
-
-
-import React, {Component} from 'react';
-
-import {
-  Image,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from 'react-native';
-
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [{}, {}, {}, {}, {}],
-    };
-  }
-
-  render() {
-    return (
-      <FlatList
-        data={this.state.data}
-        style={styles.list}
-        renderItem={this.renderMovie.bind(this)}
-        keyExtractor={(item) => item.id}
-      />
-    );
-  }
-
-  renderMovie({item}) {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={{
-            uri:
-              'https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=e4d6ea2325dda3cc0be4bf2639d25e3c/b64543a98226cffcb1f7cc0eb2014a90f703eaa9.jpg',
-          }}
-          style={styles.thumbnail}
-        />
-        <View style={styles.rightContainer}>
-          <View style={styles.titleWithout}>
-            <Text style={styles.title}>罗小黑战记</Text>
-            <Text style={styles.tip}>中国巨屏</Text>
-          </View>
-          <Text style={styles.score}>
-            猫眼评分<Text style={styles.grade}> 9.8 </Text>
-          </Text>
-          <Text style={styles.starring}>主演:罗小黑，罗小白</Text>
-          <Text style={styles.cinema}>今天129加音乐反映124场</Text>
-        </View>
-        <Text style={styles.buy}>购买</Text>
-      </View>
-    );
-  }
-}
-
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  header: {
-    height: 20,
-    marginTop: 44,
-  },
-  rightContainer: {
-    flex: 1,
-    paddingLeft: 18,
-  },
-  titleWithout: {
-    flexDirection: 'row',
-    fontWeight: 'bold',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 14,
-    marginTop: 4,
-  },
-  tip: {
-    backgroundColor: '#999',
-    fontSize: 8,
-    textAlign: 'center',
-    color: '#fff',
-    height: 14,
-    width: 40,
-    lineHeight: 14,
-    borderRadius: 2,
-    marginLeft: 4,
-    marginTop: 4,
-  },
-  score: {
-    paddingTop: 8,
-    fontSize: 12,
-    color: '#666',
-  },
-  starring: {
-    paddingTop: 4,
-    fontSize: 12,
-    color: '#666',
-  },
-  cinema: {
-    paddingTop: 4,
-    fontSize: 12,
-    color: '#666',
-  },
-  buy: {
-    fontSize: 12,
-    // color:'#333',
-    width: 46,
-    height: 24,
-    lineHeight: 24,
-    textAlign: 'center',
-    backgroundColor: '#D44145',
-    color: '#fff',
-    borderRadius: 12,
-    marginRight: 20,
-  },
-  grade: {
-    color: '#DF8D7A',
-  },
-  year: {
-    textAlign: 'center',
-  },
-  thumbnail: {
-    width: 68,
-    height: 94,
-    marginLeft: 20,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  list: {
-    paddingTop: 40,
-    backgroundColor: '#F5FCFF',
-  },
-  headerOutline: {
-    backgroundColor: '#fff',
-    marginTop: 44,
-  },
-  headerInside: {
-    backgroundColor: '#f5f5f5',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 6,
-    paddingTop: 10,
-    paddingBottom: 4,
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  trendIcon: {
-    width: 10,
-    height: 14,
-    marginLeft: 10,
-    marginTop: -1,
-  },
-  trendText: {
-    height: 22,
-    color: '#333',
-    fontWeight: 'bold',
-  },
-  trendR: {
-    color: '#333',
-    fontSize: 10,
-    fontWeight: 'bold',
-    height: 22,
-  },
-  trendRText: {},
-  trendMoney: {
-    color: '#D24349',
+const HomeStack = createStackNavigator({
+  Home: {
+    screen: HomeScreen,
   },
 });
+const NewsStack = createStackNavigator({
+  News: {
+    screen: NewsScreen,
+  },
+});
+const LoginStack = createStackNavigator({
+  Login: {
+    screen: LoginScreen,
+  },
+});
+export const Index = createSwitchNavigator({
+  Home: {
+    screen: HomeScreen,
+  },
+  News: {
+    screen: NewsScreen,
+  },
+  Login: {
+    screen: LoginScreen,
+  },
+});
+export const Route = createSwitchNavigator(
+  {
+    Index: {
+      screen: Index,
+    },
+    Auth: {
+      screen: LoginStack,
+    },
+  },
+  {
+    initialRouteName: 'Auth',
+    defaultNavigationOptions: {
+      header: null,
+    },
+  },
+);
+export const AppScreen = createBrowserApp(Route);

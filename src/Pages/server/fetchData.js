@@ -35,8 +35,8 @@ export default function fetchData(url, body, callbackSuccess, callbackFaild) {
       }
       // return data.res;
     })
-    .catch(() => {
+    .catch((err) => {
       //请求失败
-      callbackFaild('Network Faild');
+      callbackFaild(err);
     });
 }
