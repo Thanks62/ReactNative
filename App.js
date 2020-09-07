@@ -3,9 +3,10 @@ import NewsScreen from './src/Pages/News';
 import HomeScreen from './src/Pages/Home';
 import LoginScreen from './src/Pages/Login';
 import {AppScreen} from './src/Config/Navigation';
+import {PersistGate} from 'redux-persist/lib/integration/react';
 // import {TabNavigatior} from 'react-navigation';
 import {Provider} from 'react-redux';
-import store from './src/redux/store';
+import {store, persistor} from './src/redux/store';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,9 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <AppScreen />
+        <PersistGate loading={null} persistor={persistor}>
+          <AppScreen />
+        </PersistGate>
       </Provider>
     );
   }
