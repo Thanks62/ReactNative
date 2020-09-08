@@ -20,6 +20,10 @@ class Login extends Component {
       btn: 'Login',
       modalVisible: false,
     };
+    if (this.props.LoginStatus.login) {
+      this.props.navigation.navigate('Home');
+    }
+
   }
   login = () => {
     if (this.state.name === '' || this.state.name === undefined) {
