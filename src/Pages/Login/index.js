@@ -82,7 +82,7 @@ class Login extends Component {
       <ImageBackground
         source={require('../../../public/login.png')}
         style={{width: '100%', height: '100%'}}>
-        {Platform.OS==="web"?<View style={styles.webBg} />:null}
+        {Platform.OS === 'web' ? <View style={styles.webBg} /> : null}
         <View style={styles.ctn}>
           {/* <Modal
             transparent={true}
@@ -135,14 +135,14 @@ const LoginScreen = connect(
 )(Login);
 export default LoginScreen;
 var styles = StyleSheet.create({
-  webBg:{
-    position:"fixed",
-    zInde:"-1",
-    width:"100vw",
-    height:"100vh",
-    backgroundSize:"100% 100%",
-    backgroundRepeat: "no-repeat",
-    backgroundImage:'url(../../../public/login.png)',
+  webBg: {
+    position: 'fixed',
+    zInde: '-1',
+    width: '100vw',
+    height: '100vh',
+    backgroundSize: '100% 100%',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: 'url(../../../public/login.png)',
   },
   ctn: {
     display: 'flex',
